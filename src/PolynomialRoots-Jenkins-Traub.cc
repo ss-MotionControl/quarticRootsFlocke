@@ -49,6 +49,9 @@
 #include <cmath>
 #include <cfloat>
 #include <limits>
+#ifdef QUARTIC_ROOTS_FLOCKE_NO_ALLOCA
+#include <vector>
+#endif
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 using namespace std;
@@ -435,13 +438,19 @@ namespace PolynomialRoots {
     real_type & szi,
     real_type & szr
   ) {
-
-    #ifdef _MSC_VER
-    real_type * qk  = (real_type*)alloca( 2*(N+1)*sizeof(real_type) );
-	  real_type * svk = qk+N+1;
+    #ifdef QUARTIC_ROOTS_FLOCKE_NO_ALLOCA
+    std::vector<real_type> v_qk( N + 1 );
+    std::vector<real_type> v_svk( N + 1 );
+    real_type* qk = v_qk.data();
+    real_type* svk = v_svk.data();
     #else
-    real_type	qk[N+1], svk[N+1];
-	  #endif
+    #ifdef _MSC_VER
+    real_type* qk = (real_type*)alloca( 2 * ( N + 1 ) * sizeof( real_type ) );
+    real_type* svk = qk + N + 1;
+    #else
+    real_type qk[N + 1], svk[N + 1];
+    #endif
+    #endif
 
     integer   iFlag = 1;
     integer   NZ    = 0;
@@ -612,12 +621,16 @@ namespace PolynomialRoots {
   inline
   real_type
   lowerBoundZeroPoly( real_type p[], integer N ) {
-
+    #ifdef QUARTIC_ROOTS_FLOCKE_NO_ALLOCA
+    std::vector<real_type> v_pt( N + 1 );
+    real_type* pt = v_pt.data();
+    #else
     #ifdef _MSC_VER
     real_type * pt  = (real_type*)alloca( (N+1)*sizeof(real_type) );
     #else
     real_type pt[N+1];
-	  #endif
+	#endif
+    #endif
 
     for ( integer i = 0; i < N; ++i ) pt[i] = std::abs(p[i]);
     pt[N] = -abs(p[N]);
@@ -690,6 +703,16 @@ namespace PolynomialRoots {
     // The leading coefficient is zero. No further action taken. Program terminated
     if ( isZero(op[0]) ) return -2;
 
+    #ifdef QUARTIC_ROOTS_FLOCKE_NO_ALLOCA
+    std::vector<real_type> v_K( Degree + 1 );
+    std::vector<real_type> v_p( Degree + 1 );
+    std::vector<real_type> v_qp( Degree + 1 );
+    std::vector<real_type> v_temp( Degree + 1 );
+    real_type* K = v_K.data();
+    real_type* p = v_p.data();
+    real_type* qp = v_qp.data();
+    real_type* temp = v_temp.data();
+    #else
     #ifdef _MSC_VER
     real_type * ptr = (real_type*)alloca( 4*(Degree+1)*sizeof(real_type) );
     real_type * K    = ptr; ptr += Degree+1;
@@ -701,6 +724,7 @@ namespace PolynomialRoots {
     real_type p[Degree+1];
     real_type qp[Degree+1];
     real_type temp[Degree+1];
+    #endif
     #endif
 
     int N = Degree;

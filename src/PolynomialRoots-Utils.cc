@@ -200,6 +200,10 @@ namespace PolynomialRoots {
 
   //============================================================================
 
+#ifdef _MSC_VER
+#pragma warning( push )
+#pragma warning( disable : 4505 )
+#endif
   /*
   ..  scale roots by pair.second, after scaling the polinomial has the form
   ..
@@ -396,6 +400,9 @@ namespace PolynomialRoots {
       case 3: b0 = -a0/r; b1 = (b0-a1)/r; break;
     }
   }
+#ifdef _MSC_VER
+#pragma warning( pop )
+#endif
 
 }
 
