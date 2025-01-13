@@ -31,7 +31,9 @@
 #include "PolynomialRoots.hh"
 
 #include <cmath>
+#ifdef QUARTIC_ROOTS_FLOCKE_USE_IOSTREAM
 #include <iostream>
+#endif
 #include <algorithm>
 #include <limits>
 
@@ -505,6 +507,7 @@ namespace PolynomialRoots {
 
   }
 
+  #ifdef QUARTIC_ROOTS_FLOCKE_USE_IOSTREAM
   void
   Cubic::info( ostream_type & s ) const {
     real_type const & A{ m_ABCD[0] };
@@ -584,7 +587,7 @@ namespace PolynomialRoots {
     }
     return ok;
   }
-
+  #endif
 }
 
 #endif

@@ -24,7 +24,9 @@
 #include <cstdlib>
 #include <cmath>
 #include <complex>
+#ifdef QUARTIC_ROOTS_FLOCKE_USE_IOSTREAM
 #include <iostream>
+#endif
 #include <limits>
 
 /*
@@ -48,8 +50,10 @@ namespace PolynomialRoots {
   using real_type    = double;                    //!< real type numbers
   using integer      = int;                       //!< integer type numbers
   using complex_type = std::complex<real_type>;   //!< complex type numbers
+  #ifdef QUARTIC_ROOTS_FLOCKE_USE_IOSTREAM
   using ostream_type = std::basic_ostream<char>;  //!< outoput stream type
   using istream_type = std::basic_istream<char>;  //!< input stream type
+  #endif
 
   #ifndef DOXYGEN_SHOULD_SKIP_THIS
 

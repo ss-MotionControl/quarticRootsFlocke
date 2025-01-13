@@ -23,7 +23,9 @@
 #include <cmath>
 #include <cfloat>
 #include <complex>
+#ifdef QUARTIC_ROOTS_FLOCKE_USE_IOSTREAM
 #include <iostream>
+#endif
 
 //!
 //! Implementation of Flocke algorithm for roots
@@ -50,8 +52,10 @@ namespace PolynomialRoots {
   using real_type    = double;
   using integer      = int;
   using complex_type = std::complex<real_type>;
+  #ifdef QUARTIC_ROOTS_FLOCKE_USE_IOSTREAM
   using ostream_type = std::basic_ostream<char>;
   using istream_type = std::basic_istream<char>;
+  #endif
 
   #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -449,6 +453,7 @@ namespace PolynomialRoots {
       evalPolyDPoly( m_ABC, 2, x, p, dp );
     }
 
+    #ifdef QUARTIC_ROOTS_FLOCKE_USE_IOSTREAM
     //!
     //! Print info of the roots of the polynomial.
     //!
@@ -460,6 +465,7 @@ namespace PolynomialRoots {
     //!
     bool
     check( ostream_type & s ) const;
+    #endif
   };
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -846,6 +852,7 @@ namespace PolynomialRoots {
       evalPolyDPoly( m_ABCD, 3, x, p, dp );
     }
 
+    #ifdef QUARTIC_ROOTS_FLOCKE_USE_IOSTREAM
     //!
     //! Print info of the roots of the polynomial.
     //!
@@ -857,6 +864,7 @@ namespace PolynomialRoots {
     //!
     bool
     check( ostream_type & s ) const;
+    #endif
   };
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1275,6 +1283,7 @@ namespace PolynomialRoots {
       evalPolyDPoly( m_ABCDE, 4, x, p, dp );
     }
 
+    #ifdef QUARTIC_ROOTS_FLOCKE_USE_IOSTREAM
     //!
     //! Print info of the roots of the polynomial.
     //!
@@ -1286,7 +1295,7 @@ namespace PolynomialRoots {
     //!
     bool
     check( ostream_type & s ) const;
-
+    #endif
   };
 
   /*\

@@ -43,8 +43,10 @@
 
 #include "PolynomialRoots.hh"
 
+#ifdef QUARTIC_ROOTS_FLOCKE_USE_IOSTREAM
 #include <iostream>
 #include <fstream>
+#endif
 #include <cctype>
 #include <cmath>
 #include <cfloat>
